@@ -1,0 +1,147 @@
+/ip firewall mangle
+add action=mark-connection chain=prerouting comment=ICMP new-connection-mark=\
+    icmp_c passthrough=yes protocol=icmp
+add action=mark-packet chain=prerouting connection-mark=icmp_c \
+    new-packet-mark=icmp_p passthrough=no
+add action=mark-connection chain=prerouting comment=DNS dst-port=53 \
+    new-connection-mark=dns_c passthrough=yes protocol=udp
+add action=mark-packet chain=prerouting connection-mark=dns_c \
+    new-packet-mark=dns_p passthrough=no
+add action=mark-connection chain=prerouting comment="VoIP -TCP" dst-port=\
+    5060,5061 new-connection-mark=voiptcp_c passthrough=yes protocol=tcp
+add action=mark-packet chain=prerouting connection-mark=voiptcp_c \
+    new-packet-mark=voiptcp_p passthrough=no
+add action=mark-connection chain=prerouting comment="VoIP -UDP" dst-port=\
+    5060,5061 new-connection-mark=voipudp_c passthrough=yes protocol=udp
+add action=mark-packet chain=prerouting connection-mark=voipudp_c \
+    new-packet-mark=voipudp_p passthrough=no
+add action=mark-connection chain=prerouting comment="WHATSAPP -TCP" \
+    dst-address-list=whatsapp dst-port=53,443,5222,5223,5228 \
+    new-connection-mark=whatsapptcp_c passthrough=yes protocol=tcp
+add action=mark-packet chain=prerouting connection-mark=whatsapptcp_c \
+    new-packet-mark=whatsapptcp_p passthrough=no
+add action=mark-connection chain=prerouting comment="WHATSAPP -UDP" \
+    dst-address-list=whatsapp dst-port=53,3478 new-connection-mark=\
+    whatsappudp_c passthrough=yes protocol=udp
+add action=mark-packet chain=prerouting connection-mark=whatsappudp_c \
+    new-packet-mark=whatsappudp_p passthrough=no
+add action=mark-connection chain=prerouting comment=TELEGRAM \
+    dst-address-list=telegram dst-port=64458 new-connection-mark=telegram_c \
+    passthrough=yes protocol=udp
+add action=mark-packet chain=prerouting connection-mark=telegram_c \
+    new-packet-mark=telegram_p passthrough=no
+add action=mark-connection chain=prerouting comment=FACEBOOK \
+    dst-address-list=facebook new-connection-mark=facebook_c passthrough=yes
+add action=mark-packet chain=prerouting connection-mark=facebook_c \
+    new-packet-mark=facebook_p passthrough=no
+add action=mark-connection chain=prerouting comment=INSTAGRAM \
+    dst-address-list=instagram new-connection-mark=instagram_c passthrough=\
+    yes
+add action=mark-packet chain=prerouting connection-mark=instagram_c \
+    new-packet-mark=instagram_p passthrough=no
+add action=mark-connection chain=prerouting comment=TIKTOK dst-address-list=\
+    tiktok new-connection-mark=tiktok_c passthrough=yes
+add action=mark-packet chain=prerouting connection-mark=tiktok_c \
+    new-packet-mark=tiktok_p passthrough=no
+add action=mark-connection chain=prerouting comment=SPOTIFY dst-address-list=\
+    spotify new-connection-mark=spotify_c passthrough=yes
+add action=mark-packet chain=prerouting connection-mark=spotify_c \
+    new-packet-mark=spotify_p passthrough=no
+add action=mark-connection chain=prerouting comment=YOUTUBE dst-address-list=\
+    youtube new-connection-mark=youtube_c passthrough=yes
+add action=mark-packet chain=prerouting connection-mark=youtube_c \
+    new-packet-mark=youtube_p passthrough=no
+add action=mark-connection chain=prerouting comment=NETFLIX dst-address-list=\
+    netflix new-connection-mark=netflix_c passthrough=yes
+add action=mark-packet chain=prerouting connection-mark=netflix_c \
+    new-packet-mark=netflix_p passthrough=no
+add action=mark-connection chain=prerouting comment=DISNEY+ dst-address-list=\
+    disney new-connection-mark=disney_c passthrough=yes
+add action=mark-packet chain=prerouting connection-mark=disney_c \
+    new-packet-mark=disney_p passthrough=no
+add action=mark-connection chain=prerouting comment="ZOOM -TCP" \
+    dst-address-list=zoom dst-port=80,443,8801,8802 new-connection-mark=\
+    zoomtcp_c passthrough=yes protocol=tcp
+add action=mark-packet chain=prerouting connection-mark=zoomtcp_c \
+    new-packet-mark=zoomtcp_p passthrough=no
+add action=mark-connection chain=prerouting comment="ZOOM -UDP" \
+    dst-address-list=zoom dst-port=3478,3479,8801,8802 new-connection-mark=\
+    zoomudp_c passthrough=yes protocol=udp
+add action=mark-packet chain=prerouting connection-mark=zoomudp_c \
+    new-packet-mark=zoomudp_p passthrough=no
+add action=mark-connection chain=prerouting comment="TEAMS -TCP" \
+    dst-address-list=teams dst-port=80,443 new-connection-mark=teamstcp_c \
+    passthrough=yes protocol=tcp
+add action=mark-packet chain=prerouting connection-mark=teamstcp_c \
+    new-packet-mark=teamstcp_p passthrough=no
+add action=mark-connection chain=prerouting comment="TEAMS -UDP" \
+    dst-address-list=teams dst-port=3478-3481 new-connection-mark=teamsudp_c \
+    passthrough=yes protocol=udp
+add action=mark-packet chain=prerouting connection-mark=teamsudp_c \
+    new-packet-mark=teamsudp_p passthrough=no
+add action=mark-connection chain=prerouting comment=\
+    "CALL OF DUTY MOBILE -TCP" dst-port=3013,18082,65010,65050 \
+    new-connection-mark=callofdutytcp_c passthrough=yes protocol=tcp
+add action=mark-packet chain=prerouting connection-mark=callofdutytcp_c \
+    new-packet-mark=callofdutytcp_p passthrough=no
+add action=mark-connection chain=prerouting comment=\
+    "CALL OF DUTY MOBILE -UDP" dst-port=7500-7650 new-connection-mark=\
+    callofdutyudp_c passthrough=yes protocol=udp
+add action=mark-packet chain=prerouting connection-mark=callofdutyudp_c \
+    new-packet-mark=callofdutyudp_p passthrough=no
+add action=mark-connection chain=prerouting comment="FREE FIRE -TCP" \
+    dst-port=39003,39698,39779 new-connection-mark=freefiretcp_c passthrough=\
+    yes protocol=tcp
+add action=mark-packet chain=prerouting connection-mark=freefiretcp_c \
+    new-packet-mark=freefiretcp_p passthrough=no
+add action=mark-connection chain=prerouting comment="FREE FIRE-UDP" dst-port=\
+    10001,10003,10012 new-connection-mark=freefireudp_c passthrough=yes \
+    protocol=udp
+add action=mark-packet chain=prerouting connection-mark=freefireudp_c \
+    new-packet-mark=freefireudp_p passthrough=no
+add action=mark-connection chain=prerouting comment=Speedtest dst-port=8080 \
+    new-connection-mark=speedtest_c passthrough=yes protocol=tcp
+add action=mark-packet chain=prerouting connection-mark=speedtest_c \
+    new-packet-mark=speedtest_p passthrough=no
+
+
+
+/queue tree
+add name=ICMP packet-mark=icmp_p parent=global priority=1 queue=default
+add name=DNS packet-mark=dns_p parent=global priority=1 queue=default
+add name=VOIP_TCP packet-mark=voiptcp_p parent=global priority=1 queue=\
+    default
+add name=VOIP_UDP packet-mark=voipudp_p parent=global priority=1 queue=\
+    default
+add name=WHATSAPP_TCP packet-mark=whatsapptcp_p parent=global priority=1 \
+    queue=default
+add name=WHATSAPP_UDP packet-mark=whatsappudp_p parent=global priority=1 \
+    queue=default
+add name=TELEGRAM packet-mark=telegram_p parent=global priority=1 queue=\
+    default
+add name=FACEBOOK packet-mark=facebook_p parent=global priority=2 queue=\
+    default
+add name=INSTAGRAM packet-mark=instagram_p parent=global priority=2 queue=\
+    default
+add name=TIKTOK packet-mark=tiktok_p parent=global priority=2 queue=default
+add name=YOUTUBE packet-mark=youtube_p parent=global priority=2 queue=default
+add name=NETFLIX packet-mark=netflix_p parent=global priority=4 queue=default
+add name=DISNEY+ packet-mark=disney_p parent=global priority=4 queue=default
+add name=ZOOM_TCP packet-mark=zoomtcp_p parent=global priority=3 queue=\
+    default
+add name=ZOOM_UDP packet-mark=zoomudp_p parent=global priority=3 queue=\
+    default
+add name=TEAMS_TCP packet-mark=teamstcp_p parent=global priority=3 queue=\
+    default
+add name=TEAMS_UDP packet-mark=teamsudp_p parent=global priority=3 queue=\
+    default
+add name="CALL OF DUTY_TCP" packet-mark=callofdutytcp_p parent=global \
+    priority=3 queue=default
+add name="CALL OF DUTY_UDP" packet-mark=callofdutyudp_p parent=global \
+    priority=3 queue=default
+add name="FREE FIRE_TCP" packet-mark=freefiretcp_p parent=global priority=3 \
+    queue=default
+add name="FREE FIRE_UDP" packet-mark=freefireudp_p parent=global priority=3 \
+    queue=default
+add name=SPEEDTEST packet-mark=speedtest_p parent=global priority=1 queue=\
+    default
